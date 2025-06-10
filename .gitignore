@@ -1,2 +1,5 @@
 .venv
 civ-ipriot-car-park.code-workspace
+__pycache__
+.env
+.vscode
