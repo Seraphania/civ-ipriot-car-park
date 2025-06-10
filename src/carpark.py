@@ -1,16 +1,16 @@
 class Carpark:
     def __init__(self,
                  location: str,
-                 capacity: int,
-                 plates: list[str],
-                 displays : None):
+                 capacity: int):
+
         self.location = location
         self.capacity = capacity
-        self.plates = plates or []
-        self.displays = displays
+        self._plates = None or []
+        self._displays = ''
 
     def __str__(self):
-        pass # Return a string with the carpark's location and capacity
+        carpark_info = f"{self.location} carpark has a capacity of {self.capacity} bays."
+        return carpark_info
 
     def add_car(self):
         pass # Add a car to the carpark
