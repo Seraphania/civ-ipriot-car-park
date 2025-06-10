@@ -73,9 +73,8 @@ Notes on using this guide:
 **Additional evidencing:**
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
-```markdown
-![Initial commit](screenshots/image-of-github-after-push.png)
-```
+![Initial commit](./images/initial_commit.png)
+
 
 ### 2.2. Create a branch for your work
 
@@ -90,11 +89,13 @@ git push -u origin feature/mvp
 
 After reading the task requirements, you should be able to identify the classes, methods, and attributes required for the car park system. Complete the following table with the classes, methods, and attributes you must implement.
 
-| Class Name | Attributes | Methods |
-| ---------- | ---------- | ------- |
-| `CarPark`    |            |         |
-| `Sensor`     |            |         |
-| `Display`    |            |         |
+|  Class Name  | Attributes | Methods |
+| -------------| ---------- | ------- |
+| `CarPark`    | location (str), capacity (int), plates (str) | add_car, remove_car, update_status |
+| `Sensor`     | sensor_id (str), active (bool)               | car_entry, car_exit, update_plates |
+| `Display`    | display_id (str), data (dict)                | update_data, display_data          |
+
+
 
 **Additional evidencing:**
 Ensure you have completed the previous table and include at least two methods and attributes for each.
@@ -122,9 +123,7 @@ Ensure you have completed the previous table and include at least two methods an
 **Additional evidencing:**
 Include a screenshot of your GitHub repository `src/` directory **after** you have pushed your changes.
 
-```markdown
-![Added stubs for classes](screenshots/stubs-for-classes.png)
-```
+![Added stubs for classes](images/stubbs-for-classes.png)
 
 ### 2.5. Add constructors and attributes to the classes
 
