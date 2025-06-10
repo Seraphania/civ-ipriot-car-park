@@ -3,8 +3,6 @@
 > **Assessment Guide:**
 > A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [here](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
 
-![Image of a modern car park](images/new_car_park.png)
-
 ## Overview
 
 In this assessment, you must design and implement a simplified car park system using Object-Oriented Programming (OOP) concepts in Python. The system will consist of a **car park**, **sensors**, and **displays** to track the cars entering and exiting and the availability of parking bays.
