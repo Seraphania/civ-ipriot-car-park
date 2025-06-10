@@ -3,7 +3,7 @@
 > **Assessment Guide:**
 > A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [raise an issue](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
 
-![Image of a modern car park](images/new-car-park.png)
+![Image of a modern car park](images/new_car_park.png)
 
 ## 1. Overview
 
@@ -73,8 +73,9 @@ Notes on using this guide:
 **Additional evidencing:**
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
-![Initial commit](./images/initial-commit.png)
-
+```markdown
+![Initial commit](screenshots/image-of-github-after-push.png)
+```
 
 ### 2.2. Create a branch for your work
 
@@ -89,6 +90,11 @@ git push -u origin feature/mvp
 
 After reading the task requirements, you should be able to identify the classes, methods, and attributes required for the car park system. Complete the following table with the classes, methods, and attributes you must implement.
 
+| Class Name | Attributes | Methods |
+| ---------- | ---------- | ------- |
+| `CarPark`    |            |         |
+| `Sensor`     |            |         |
+| `Display`    |            |         |
 |  Class Name  | Attributes | Methods |
 | -------------| ---------- | ------- |
 | `CarPark`    | location (str), capacity (int), plates (str) | add_car, remove_car, update_status |
