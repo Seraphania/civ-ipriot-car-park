@@ -1,17 +1,16 @@
+from carpark import Carpark
+
 class Sensor:
     def __init__(self,
                  sensor_id: str,
-                 is_active: bool,
-                 carpark: str):
+                 carpark: Carpark,
+                 is_active: bool = False):
         self.sensor_id = sensor_id
         self.is_active = is_active
         self.carpark = carpark
 
     def __str__(self):
         return f"Sensor ID: {self.sensor_id}, Status: {self.is_active}"
-    
-    def update_staus(self):
-        pass # Update display information
 
 class EntrySensor(Sensor):
     ...
