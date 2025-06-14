@@ -1,4 +1,3 @@
-# carpark.py
 class Carpark:
     def __init__(self,
                  location: str,
