@@ -3,7 +3,7 @@
 > **Assessment Guide:**
 > A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [raise an issue](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
 
-![Image of a modern car park](images/new_car_park.png)
+![Image of a modern car park](images/new-car-park.png)
 
 ## 1. Overview
 
@@ -73,7 +73,7 @@ Notes on using this guide:
 **Additional evidencing:**
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
-![Initial commit](./images/initial_commit.png)
+![Initial commit](./images/initial-commit.png)
 
 
 ### 2.2. Create a branch for your work
