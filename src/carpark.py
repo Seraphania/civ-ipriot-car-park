@@ -17,7 +17,8 @@ class Carpark:
     
     @property
     def available_bays(self) -> int:
-        return self.capacity - len(self._plates)
+        available = self.capacity - len(self._plates)
+        return max(available, 0)
     
     def register(self, display):
         if not isinstance(display, Display):
