@@ -15,16 +15,28 @@ class Carpark:
     def __str__(self):
         return f"{self.location} carpark has a capacity of {self.capacity} bays."
     
+    @property
+    def available_bays(self) -> int:
+        return self.capacity - len(self._plates)
+    
     def register(self, display):
         if not isinstance(display, Display):
             raise TypeError("Component is not a display")
         self._displays.append(display)
         
-    def add_car(self):
-        ...
+    def add_car(self, plate: str):
+        if plate in self._plates:
+            raise ValueError("Vehicle is already in the carpark")
+        self._plates.append(plate)
+        self.update_displays()
 
-    def remove_car(self):
-        ...
+    def remove_car(self, plate: str):
+        if plate not in self._plates:
+            raise ValueError("This vehicle has not been registered in the carpark")
+        self._plates.remove(plate)
+        self.update_displays()
 
     def update_displays(self):
-        ...
+        message = "{available bays or full}"
+        for display in self._displays:
+            display.update(message)

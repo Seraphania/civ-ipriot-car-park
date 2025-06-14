@@ -12,8 +12,8 @@ class Display:
     def __str__(self) -> str:
         return f"Display {self.display_id}: {self.message}"
 
-    def update_data(self):
-        pass # update information in the data dictionary # TODO: decide if this should be elsewhere
+    def update(self):
+        pass # update information in the data dictionary
 
     def display_data(self):
         pass # Print the display data in a nice way
