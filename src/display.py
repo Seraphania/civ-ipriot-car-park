@@ -4,14 +4,13 @@ class Display:
     def __init__(self,
                  display_id: str,
                  message: str = "",
-                 is_on: bool = False):
+                 is_active: bool = False):
         self.display_id = display_id
         self.message = message
-        self.is_on = is_on
+        self.is_on = is_active
 
     def __str__(self) -> str:
         return f"Display {self.display_id}: {self.message}"
-    
 
     def update_data(self):
         pass # update information in the data dictionary # TODO: decide if this should be elsewhere
