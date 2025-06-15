@@ -4,9 +4,9 @@ sys.path.append("src")
 from carpark import Carpark
 from display import Display
 
-
 c = Carpark("Moondalup", 42)
-print(c)
+d = Display("display_1")
 
-d = Display("1", "Welcome to the carpark.")
-print(d)
+c.register(d)
+
+c.update_displays()

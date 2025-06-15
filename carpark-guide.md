@@ -391,11 +391,11 @@ For example, you may want to see the number of available bays, the current tempe
 Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each piece of information? There's no right or wrong answer here. But you should be able to justify your answer.
 
 >Q. Which class is responsible for the number of available bays (and why)?
->
+> Carpark: It contains the capacity and list of cars (`_plates`) already, so it makes sense to add available bays as a property as well.
 >Q. Which class is responsible for the current temperature (and why)?
->
+> Display: Temperature is not needed for any other part of the system, and needs only to be displayed so it makes sense for it to be handled there.
 >Q. Which class is responsible for the time (and why)?
->
+> Sensor: Sensors will be triggered when a car enters or exits, as it is likely that in future we will want to keep track of the entry and exit times of cars it makes sense for sensor to keep track of the time.
 --------
 
 ##### 2.7.3.1. Detour: implement available bays
