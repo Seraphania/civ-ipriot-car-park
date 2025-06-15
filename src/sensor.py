@@ -15,11 +15,11 @@ class Sensor(ABC):
         return f"Sensor ID: {self.sensor_id}, Status: {self.is_active}"
 
     @abstractmethod
-    def update_car_park(self, plate):
+    def update_car_park(self, plate: str):
         ...
 
     def _scan_plate(self):
-        return f"FAKE-{randint(0,9999): 04d}"
+        return f"FAKE-{randint(0, 9999): 04d}"
     
     def detect_vehicle(self):
         plate = self._scan_plate()

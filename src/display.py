@@ -3,7 +3,7 @@ from sys import stdout
 
 class Display:
     def __init__(self,
-                 display_id: str,
+                 display_id: int,
                  is_active: bool = False,
                  message: str = " "):
 

@@ -9,5 +9,5 @@ from exit_sensor import ExitSensor
 carpark = Carpark("Moondalup", 42)
 entry_sensor = EntrySensor("Entry_sense1", carpark, is_active=True)
 exit_sensor = ExitSensor("Exit_sense1", carpark, is_active=True)
-carpark.register(Display("Display_1", is_active=True))
+carpark.register(Display(1, is_active=True))
 entry_sensor.detect_vehicle()
