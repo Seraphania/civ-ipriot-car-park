@@ -1,6 +1,7 @@
 from display import Display
 
 class Carpark:
+    displays: list[Display]
     def __init__(self,
                  location: str,
                  capacity: int,
@@ -38,12 +39,11 @@ class Carpark:
         self.update_displays()
 
     def update_displays(self):
-        data = {
+        for display in self._displays:
+            display.update({
             "Available Bays": self.available_bays,
             "Current Temperature": 25, # TODO Create module to get current weather from an API - Maybe
             "Current Time": "12:00pm", # TODO Update this from sensor
-            "Message": f"Welcome to {self.location} Carpark",           
-            }
-        for display in self._displays:
-            display.update(data)
+            "Message": f"Welcome to {self.location} Carpark",
+            })
 
