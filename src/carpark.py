@@ -10,8 +10,8 @@ class Carpark:
 
         self.location = location
         self.capacity = capacity
-        self._plates = _plates or []
-        self._displays = _displays or []
+        self.plates = _plates or []
+        self.displays = _displays or []
 
     def __str__(self):
         return f"{self.location} carpark has a capacity of {self.capacity} bays."
@@ -24,22 +24,22 @@ class Carpark:
     def register(self, display):
         if not isinstance(display, Display):
             raise TypeError("Component is not a display")
-        self._displays.append(display)
+        self.displays.append(display)
         
     def add_car(self, plate: str):
         if plate in self._plates:
             raise ValueError("Vehicle is already in the carpark")
-        self._plates.append(plate)
+        self.plates.append(plate)
         self.update_displays()
 
     def remove_car(self, plate: str):
-        if plate not in self._plates:
+        if plate not in self.plates:
             raise ValueError("This vehicle has not been registered in the carpark")
-        self._plates.remove(plate)
+        self.plates.remove(plate)
         self.update_displays()
 
     def update_displays(self):
-        for display in self._displays:
+        for display in self.displays:
             display.update({
             "Available Bays": self.available_bays,
             "Current Temperature": 25, # TODO Create module to get current weather from an API - Maybe
