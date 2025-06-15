@@ -393,7 +393,7 @@ Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which clas
 >Q. Which class is responsible for the number of available bays (and why)?
 > Carpark: It contains the capacity and list of cars (`_plates`) already, so it makes sense to add available bays as a property as well.
 >Q. Which class is responsible for the current temperature (and why)?
-> Display: Temperature is not needed for any other part of the system, and needs only to be displayed so it makes sense for it to be handled there.
+> Carpark/Separate module: Carpark is responsible for aggregating the display information in the `update_displays()` method, before calling the Display class `update()` method to actually print the information. Update displays() should hold the weather information, perhaps calling a separate class that gets updated Weather information from an API module.
 >Q. Which class is responsible for the time (and why)?
 > Sensor: Sensors will be triggered when a car enters or exits, as it is likely that in future we will want to keep track of the entry and exit times of cars it makes sense for sensor to keep track of the time.
 --------
@@ -469,25 +469,26 @@ This time, we will push the tag to the remote repository:
 Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
 ```markdown
-![Added methods to the car park class](screenshots/methods-to-car-park.png)
+![Added methods to the car park class](./screenshots/methods-to-car-park.png)
 ```
 
 Answer the following questions:
 > **Review Questions**
 >
 > 1. **Which class is responsible for each of the following pieces of information (and why)?**
->    - *The number of available bays*
->      `Answer here...`
->    - *The current temperature*
->      `Answer here...`
->    - *The time*
->      `Answer here...`
+>    - *The number of available bays*  
+>      `Carpark: It contains the capacity and list of cars (_plates) already, so it makes sense to add available bays as a property as well.`
+>    - *The current temperature*  
+>      `Carpark/Separate module: Carpark is responsible for aggregating the display information in the update_displays() method, before calling the Display class update() method to actually print the information. Update displays() should hold the weather information, perhaps calling a separate class that gets updated Weather information from an API module.`
+>    - *The time*  
+>      `Sensor: Sensors will be triggered when a car enters or exits, as it is likely that in future we will want to keep track of the entry and exit times of cars it makes sense for sensor to keep track of the time.`
 >
-> 2. **What is the difference between an attribute and a property?**
->    `Answer here...`
+> 2. **What is the difference between an attribute and a property?**  
+>    `A property is a method that is used to get or set the values of an attribute. This is achieved by using the @property decorator. Properties allow more control than an attribute as the value can be calculated, but with the benefit that unlike a method it can still be referenced in the same way as an attribute. Properties also have the benefit of being more robust than normal attributes as they can't be externally modified.`
 >
-> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**
->    `Answer here...`
+> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**  
+>    `Dictionaries are easy to create as they can contain multiple different data types and the key/value structure makes it easy to access information, as well as see at a glance what the data is. They are flexible allowing them to be easily iterated over as well as edited. `  
+> `Dictionaries are not the most efficient way to store information, however for small datasets like the one in this project, the effect is likely to be minimal. If there was likely to be more data being stored for display; then consideration should be given to using some other data storage method, such as an external file.`
 
 #### 2.7.5. Add a detect vehicle method to the Sensor class
 
