@@ -4,8 +4,9 @@ from sys import stdout
 class Display:
     def __init__(self,
                  display_id: str,
-                 message: str = "",
-                 is_active: bool = False):
+                 is_active: bool = False,
+                 message: str = " "):
+
         self.display_id = display_id
         self.message = message
         self.is_on = is_active

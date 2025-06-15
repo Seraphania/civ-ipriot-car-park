@@ -3,10 +3,11 @@ sys.path.append("src")
 
 from carpark import Carpark
 from display import Display
+from entry_sensor import EntrySensor
+from exit_sensor import ExitSensor
 
-c = Carpark("Moondalup", 42)
-d = Display("display_1")
-
-c.register(d)
-
-c.update_displays()
+carpark = Carpark("Moondalup", 42)
+entry_sensor = EntrySensor("Entry_sense1", carpark, is_active=True)
+exit_sensor = ExitSensor("Exit_sense1", carpark, is_active=True)
+carpark.register(Display("Display_1", is_active=True))
+entry_sensor.detect_vehicle()

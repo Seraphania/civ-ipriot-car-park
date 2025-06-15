@@ -1,6 +1,8 @@
+from abc import ABC, abstractmethod
+from random import randint
 from carpark import Carpark
 
-class Sensor:
+class Sensor(ABC):
     def __init__(self,
                  sensor_id: str,
                  carpark: Carpark,
@@ -12,14 +14,13 @@ class Sensor:
     def __str__(self):
         return f"Sensor ID: {self.sensor_id}, Status: {self.is_active}"
 
-class EntrySensor(Sensor):
-    ...
+    @abstractmethod
+    def update_car_park(self, plate):
+        ...
+
+    def _scan_plate(self):
+        return f"FAKE-{randint(0,9999): 04d}"
     
-    def car_entry(self):
-        pass # update carpark when entry sensor is triggered
-
-class ExitSensor(Sensor):
-    ...
-
-    def car_exit(self):
-        pass # update carpark when exit sensor is triggered
+    def detect_vehicle(self):
+        plate = self._scan_plate()
+        self.update_car_park(plate)
