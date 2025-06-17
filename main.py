@@ -6,6 +6,7 @@ from display import Display
 from entry_sensor import EntrySensor
 from exit_sensor import ExitSensor
 
+
 carpark = Carpark("Moondalup", 42)
 entry_sensor = EntrySensor("Entry_sense1", carpark, is_active=True)
 exit_sensor = ExitSensor("Exit_sense1", carpark, is_active=True)

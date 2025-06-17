@@ -7,4 +7,4 @@ class ExitSensor(Sensor):
         self.carpark.remove_car(plate)
 
     def _scan_plate(self):
-        return choice(self.carpark._plates)
+        return choice(self.carpark.plates)

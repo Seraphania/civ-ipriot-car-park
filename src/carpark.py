@@ -18,7 +18,7 @@ class Carpark:
     
     @property
     def available_bays(self) -> int:
-        available = self.capacity - len(self._plates)
+        available = self.capacity - len(self.plates)
         return max(available, 0)
     
     def register(self, display):
@@ -27,7 +27,7 @@ class Carpark:
         self.displays.append(display)
         
     def add_car(self, plate: str):
-        if plate in self._plates:
+        if plate in self.plates:
             raise ValueError("Vehicle is already in the carpark")
         self.plates.append(plate)
         self.update_displays()
