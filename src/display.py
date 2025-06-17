@@ -14,7 +14,7 @@ class Display:
     def __str__(self) -> str:
         return f"Display {self.display_id}: {self.message}"
 
-    def update(self, data: dict, delay: float = 0.1, width: int = 40):
+    def update(self, data: dict, delay: float = 0.1, width: int = 40): # TODO: Implement way to turn this off
         for key, value in data.items():
             line = f"{' ' * width}{key}: {value}{' ' * width}"
             for i in range(len(line) - width + 1):
