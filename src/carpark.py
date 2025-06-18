@@ -5,11 +5,13 @@ class Carpark:
     def __init__(self,
                  location: str,
                  capacity: int,
+                 message: str | None = None,
                  _plates = None,
                  _displays = None):
 
         self.location = location
         self.capacity = capacity
+        self.message = message or f"Welcome to {self.location} carpark"
         self.plates = _plates or []
         self.displays = _displays or []
 
@@ -40,10 +42,11 @@ class Carpark:
 
     def update_displays(self):
         for display in self.displays:
-            display.update({
+            display.print_to_display({
             "Available Bays": self.available_bays,
             "Current Temperature": 25, # TODO Create module to get current weather from an API - Maybe
             "Current Time": "12:00pm", # TODO Update this from sensor
-            "Message": f"Welcome to {self.location} Carpark",
+            "Message": self.message,
             })
+
 
