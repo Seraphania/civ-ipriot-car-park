@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from random import randint
 from carpark import Carpark
+from datetime import datetime
 
 class Sensor(ABC):
     def __init__(self,
@@ -11,6 +12,18 @@ class Sensor(ABC):
         self.is_active = is_active
         self.carpark = carpark
 
+    @property
+    def date(self) -> str:
+        raw_time = datetime.now()
+        date = f"{raw_time.day}/{raw_time.month}/{raw_time.year}"
+        return date
+    
+    @property
+    def time(self):
+        raw_time = datetime.now()
+        time = raw_time.strftime("%I:%M %p")
+        return time
+    
     def __str__(self):
         return f"Sensor ID: {self.sensor_id}, Status: {self.is_active}"
 
