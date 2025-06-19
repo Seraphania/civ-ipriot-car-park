@@ -7,7 +7,7 @@ class Carpark:
                  capacity: int,
                  message: str | None = None,
                  _plates = None,
-                 _displays = None):
+                 _displays = None): # add data for aggregation
 
         self.location = location
         self.capacity = capacity
@@ -44,8 +44,8 @@ class Carpark:
         for display in self.displays:
             display.print_to_display({
             "Available Bays": self.available_bays,
-            "Current Temperature": 25, # TODO Create module to get current weather from an API - Maybe
-            "Current Time": "12:00pm", # TODO Update this from sensor
+            "Current Temperature": 25, # TODO Create module to get current weather from sensor, or maybe an API?
+            "Current Time": l, # TODO Update this from sensor
             "Message": self.message,
             })
 
