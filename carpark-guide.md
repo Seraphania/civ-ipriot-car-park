@@ -3,7 +3,7 @@
 > **Assessment Guide:**
 > A step-by-step worksheet you can use to complete all the project's coding and version control requirements. Please raise any issues you identify with the guide [raise an issue](https://github.com/NM-TAFE/civ-ipriot-in-class-demos/issues) using the tag `project-guide`.
 
-![Image of a modern car park](images/new_car_park.png)
+![Image of a modern car park](images/new-car-park.png)
 
 ## 1. Overview
 
@@ -73,9 +73,8 @@ Notes on using this guide:
 **Additional evidencing:**
 Include a screenshot of your GitHub repository **after** you have pushed your initial commit.
 
-```markdown
-![Initial commit](screenshots/image-of-github-after-push.png)
-```
+![Initial commit](./images/initial-commit.png)
+
 
 ### 2.2. Create a branch for your work
 
@@ -90,11 +89,13 @@ git push -u origin feature/mvp
 
 After reading the task requirements, you should be able to identify the classes, methods, and attributes required for the car park system. Complete the following table with the classes, methods, and attributes you must implement.
 
-| Class Name | Attributes | Methods |
-| ---------- | ---------- | ------- |
-| `CarPark`    |            |         |
-| `Sensor`     |            |         |
-| `Display`    |            |         |
+|  Class Name  | Attributes | Methods |
+| -------------| ---------- | ------- |
+| `CarPark`    | location (str), capacity (int), plates (str) | add_car, remove_car, update_status |
+| `Sensor`     | sensor_id (str), active (bool)               | car_entry, car_exit, update_plates |
+| `Display`    | display_id (str), data (dict)                | update_data, display_data          |
+
+
 
 **Additional evidencing:**
 Ensure you have completed the previous table and include at least two methods and attributes for each.
@@ -122,9 +123,7 @@ Ensure you have completed the previous table and include at least two methods an
 **Additional evidencing:**
 Include a screenshot of your GitHub repository `src/` directory **after** you have pushed your changes.
 
-```markdown
-![Added stubs for classes](screenshots/stubs-for-classes.png)
-```
+![Added stubs for classes](images/stubbs-for-classes.png)
 
 ### 2.5. Add constructors and attributes to the classes
 
@@ -228,6 +227,7 @@ Ensure that you have completed the previous steps and created the appropriate ta
 s1
 s2
 ```
+![Git Tags](./images/git-tags.png)
 
 ### 2.6. Relate the classes
 
@@ -390,12 +390,14 @@ For example, you may want to see the number of available bays, the current tempe
 
 Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each piece of information? There's no right or wrong answer here. But you should be able to justify your answer.
 
->Q. Which class is responsible for the number of available bays (and why)?
->
->Q. Which class is responsible for the current temperature (and why)?
->
->Q. Which class is responsible for the time (and why)?
->
+Q. Which class is responsible for the number of available bays (and why)?
+> Carpark: It contains the capacity and list of cars (`_plates`) already, so it makes sense to add available bays as a property as well.  
+
+Q. Which class is responsible for the current temperature (and why)?
+> Carpark/Separate module: Carpark is responsible for aggregating the display information in the `update_displays()` method, before calling the Display class `update()` method to actually print the information. Update displays() should hold the weather information, perhaps calling a separate class that gets updated Weather information from an API module.  
+
+Q. Which class is responsible for the time (and why)?
+> Sensor: Sensors will be triggered when a car enters or exits, as it is likely that in future we will want to keep track of the entry and exit times of cars it makes sense for sensor to keep track of the time.
 --------
 
 ##### 2.7.3.1. Detour: implement available bays
@@ -468,26 +470,25 @@ This time, we will push the tag to the remote repository:
 
 Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
-```markdown
-![Added methods to the car park class](screenshots/methods-to-car-park.png)
-```
+![Added methods to the car park class](./images/methods-to-car-park.png)
 
 Answer the following questions:
 > **Review Questions**
 >
 > 1. **Which class is responsible for each of the following pieces of information (and why)?**
->    - *The number of available bays*
->      `Answer here...`
->    - *The current temperature*
->      `Answer here...`
->    - *The time*
->      `Answer here...`
+>    - *The number of available bays*  
+>      `Carpark: It contains the capacity and list of cars (_plates) already, so it makes sense to add available bays as a property as well.`
+>    - *The current temperature*  
+>      `Carpark/Separate module: Carpark is responsible for aggregating the display information in the update_displays() method, before calling the Display class update() method to actually print the information. Update displays() should hold the weather information, perhaps calling a separate class that gets updated Weather information from an API module.`
+>    - *The time*  
+>      `Sensor: Sensors will be triggered when a car enters or exits, as it is likely that in future we will want to keep track of the entry and exit times of cars it makes sense for sensor to keep track of the time.`
 >
-> 2. **What is the difference between an attribute and a property?**
->    `Answer here...`
+> 2. **What is the difference between an attribute and a property?**  
+>    `A property is a method that is used to get or set the values of an attribute. This is achieved by using the @property decorator. Properties allow more control than an attribute as the value can be calculated, but with the benefit that unlike a method it can still be referenced in the same way as an attribute. Properties also have the benefit of being more robust than normal attributes as they can't be externally modified.`
 >
-> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**
->    `Answer here...`
+> 3. **Why do you think we used a dictionary to hold the data we passed the display? List at least one advantage and one disadvantage of this approach.**  
+>    `Dictionaries are easy to create as they can contain multiple different data types and the key/value structure makes it easy to access information, as well as see at a glance what the data is. They are flexible allowing them to be easily iterated over as well as edited. `  
+> `Dictionaries are not the most efficient way to store information, however for small datasets like the one in this project, the effect is likely to be minimal. If there was likely to be more data being stored for display; then consideration should be given to using some other data storage method, such as an external file.`
 
 #### 2.7.5. Add a detect vehicle method to the Sensor class
 
@@ -722,14 +723,13 @@ if __name__ == "__main__":
 
 3. Run the above unit tests in PyCharm.
 4. Fix any errors you encounter.
+   *No errors encountered unfortunately*
 
 **Additional evidencing:**
 
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
-   ```markdown
-   ![Unit tests](screenshots/unit-tests.png)
-   ```
+![Unit tests](./images/unit-tests.png)
 
 2. Commit your changes to the local repository. Tag the commit with `s6` so your lecturer can find it:
 3. Push the tag to the remote repository:
@@ -785,9 +785,9 @@ Next, we'll create tests for the `Display` class. These tests will test the `__i
 
 1. Add a screenshot of the output of the unit tests. If any failed, add a screenshot of the error message and a screenshot after you have fixed the errors:
 
-   ```markdown
-   ![Unit tests](screenshots/unit-tests-display.png)
-   ```
+![failed unit tests display](./images/failed-unit-tests-display.png)
+![passed display unit tests](./images/passed-display-unit-tests.png)
+![passed additional carpark unit tests](./images/passed-additional-carpark-unit-tests.png)
 
 2. Commit your changes to the local repository. Tag the commit with `s7` so your lecturer can find it.
 3. Push the tag to the remote repository.
@@ -1133,4 +1133,4 @@ In your final submission, you must include any files you created or modified. Th
 
 --------
 
-![Image of a car park on the moon](images/moon_park.png)
+![Image of a car park on the moon](images/moon-park.png)
