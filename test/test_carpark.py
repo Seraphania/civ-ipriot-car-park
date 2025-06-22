@@ -1,0 +1,65 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+
+import unittest
+from carpark import Carpark
+from display import Display
+
+class TestCarpark(unittest.TestCase):
+      def setUp(self):
+         self.carpark = Carpark("123 Example Street", 100)
+
+      def test_carpark_initialized_with_all_attributes(self):
+         self.assertIsInstance(self.carpark, Carpark)
+         self.assertEqual(self.carpark.location, "123 Example Street")
+         self.assertEqual(self.carpark.capacity, 100)
+         self.assertEqual(self.carpark.plates, [])
+         self.assertEqual(self.carpark.displays, [])
+         self.assertEqual(self.carpark.message, "Welcome to 123 Example Street carpark")
+         self.assertEqual(self.carpark.temperature, "")
+         self.assertEqual(self.carpark.available_bays, 100)
+         self.assertIsNotNone(self.carpark.time)
+
+      def test_register_raises_type_error(self):
+         with self.assertRaises(TypeError):
+            self.carpark.register("Not a display")
+
+      def test_add_car(self):
+         self.carpark.add_car("FAKE-001")
+         self.assertEqual(self.carpark.plates, ["FAKE-001"])
+         self.assertEqual(self.carpark.available_bays, 99)
+
+      def test_remove_car(self):
+         self.carpark.add_car("FAKE-001")
+         self.carpark.remove_car("FAKE-001")
+         self.assertEqual(self.carpark.plates, [])
+         self.assertEqual(self.carpark.available_bays, 100)
+
+      def test_overfill_the_carpark(self):
+         for i in range(100):
+            self.carpark.add_car(f"FAKE-{i}")
+         self.assertEqual(self.carpark.available_bays, 0)
+         self.carpark.add_car("FAKE-100")
+         # Overfilling the car park should not change the number of available bays
+         self.assertEqual(self.carpark.available_bays, 0)
+
+         # Removing a car from an overfilled car park should not change the number of available bays
+         self.carpark.remove_car("FAKE-100")
+         self.assertEqual(self.carpark.available_bays, 0)
+
+      def test_removing_a_car_that_does_not_exist(self):
+         with self.assertRaises(ValueError):
+            self.carpark.remove_car("NO-1")
+
+      def test_update_displays_updates_display_data(self):
+         # The display.display_data attribute for each display should be updated with the dictionary content
+         self.carpark.temperature = "22°C"
+         self.carpark.register(Display(1, is_active=True))
+         self.carpark.register(Display(2, is_active=True))
+         self.carpark.update_displays(scroll_print=False) # Print instantly without scrolling effect for testing
+         for display in self.carpark.displays:
+            self.assertEqual(display.display_data["Available Bays"], self.carpark.available_bays)
+            self.assertEqual(display.display_data["Current Temperature"], self.carpark.temperature)
+            self.assertEqual(display.display_data["Current Time"], self.carpark.time)
+            self.assertEqual(display.display_data["Message"], self.carpark.message)
