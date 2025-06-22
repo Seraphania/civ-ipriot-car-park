@@ -1,16 +1,21 @@
 import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve() / "../src"))
 
 import unittest
+
 from carpark import Carpark
 from display import Display
+
+log_file = Path("log/log.txt")
 
 class TestCarpark(unittest.TestCase):
       def setUp(self):
          self.carpark = Carpark("123 Example Street", 100)
 
       def test_carpark_initialized_with_all_attributes(self):
+         self.assertEqual(self.carpark.log_file, log_file)
          self.assertIsInstance(self.carpark, Carpark)
          self.assertEqual(self.carpark.location, "123 Example Street")
          self.assertEqual(self.carpark.capacity, 100)
@@ -63,3 +68,30 @@ class TestCarpark(unittest.TestCase):
             self.assertEqual(display.display_data["Current Temperature"], self.carpark.temperature)
             self.assertEqual(display.display_data["Current Time"], self.carpark.time)
             self.assertEqual(display.display_data["Message"], self.carpark.message)
+            
+      def test_log_file_created(self):
+         new_carpark = Carpark(location="Moondalup", capacity=100, _log_file=Path("log/test_log.txt"))
+         self.assertTrue(Path("log/test_log.txt").exists())
+
+      def tearDown(self):
+         Path("log/test_log.txt").unlink(missing_ok=True)
+
+      def test_car_logged_when_entering(self):
+         new_carpark = Carpark("123 Example Street", 100, log_file = "new_log.txt") # TODO: change this to use a class attribute or new instance variable
+         self.carpark.add_car("NEW-001")
+         with self.carpark.log_file.open() as f:
+               last_line = f.readlines()[-1]
+         self.assertIn("NEW-001", last_line) # check plate entered
+         self.assertIn("entered", last_line) # check description
+         self.assertIn("\n", last_line) # check entry has a new line
+
+      def test_car_logged_when_exiting(self):
+         new_carpark = Carpark("123 Example Street", 100, log_file = "new_log.txt") # TODO: change this to use a class attribute or new instance variable
+         self.carpark.add_car("NEW-001")
+         self.carpark.remove_car("NEW-001")
+         with self.carpark.log_file.open() as f:
+               last_line = f.readlines()[-1]
+         self.assertIn(last_line, "NEW-001") # check plate entered
+         self.assertIn(last_line, "exited") # check description
+         self.assertIn(last_line, "\n") # check entry has a new line
+ 
