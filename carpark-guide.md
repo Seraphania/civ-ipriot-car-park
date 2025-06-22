@@ -89,11 +89,13 @@ git push -u origin feature/mvp
 
 After reading the task requirements, you should be able to identify the classes, methods, and attributes required for the car park system. Complete the following table with the classes, methods, and attributes you must implement.
 
-| Class Name | Attributes | Methods |
-| ---------- | ---------- | ------- |
-| `CarPark`    |            |         |
-| `Sensor`     |            |         |
-| `Display`    |            |         |
+|  Class Name  | Attributes | Methods |
+| -------------| ---------- | ------- |
+| `CarPark`    | location (str), capacity (int), plates (str) | add_car, remove_car, update_status |
+| `Sensor`     | sensor_id (str), active (bool)               | car_entry, car_exit, update_plates |
+| `Display`    | display_id (str), data (dict)                | update_data, display_data          |
+
+
 
 **Additional evidencing:**
 Ensure you have completed the previous table and include at least two methods and attributes for each.
@@ -388,13 +390,11 @@ For example, you may want to see the number of available bays, the current tempe
 
 Now consider, between the `CarPark`, `Sensor`, and `Display` classes, which class is responsible for each piece of information? There's no right or wrong answer here. But you should be able to justify your answer.
 
-Q. Which class is responsible for the number of available bays (and why)?
-> Carpark: It contains the capacity and list of cars (`_plates`) already, so it makes sense to add available bays as a property as well.  
-
-Q. Which class is responsible for the current temperature (and why)?
-> Carpark/Separate module: Carpark is responsible for aggregating the display information in the `update_displays()` method, before calling the Display class `update()` method to actually print the information. Update displays() should hold the weather information, perhaps calling a separate class that gets updated Weather information from an API module.  
-
-Q. Which class is responsible for the time (and why)?
+>Q. Which class is responsible for the number of available bays (and why)?
+> Carpark: It contains the capacity and list of cars (`_plates`) already, so it makes sense to add available bays as a property as well.
+>Q. Which class is responsible for the current temperature (and why)?
+> Carpark/Separate module: Carpark is responsible for aggregating the display information in the `update_displays()` method, before calling the Display class `update()` method to actually print the information. Update displays() should hold the weather information, perhaps calling a separate class that gets updated Weather information from an API module.
+>Q. Which class is responsible for the time (and why)?
 > Sensor: Sensors will be triggered when a car enters or exits, as it is likely that in future we will want to keep track of the entry and exit times of cars it makes sense for sensor to keep track of the time.
 --------
 
@@ -468,7 +468,9 @@ This time, we will push the tag to the remote repository:
 
 Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
-![Added methods to the car park class](./images/methods-to-car-park.png)
+```markdown
+![Added methods to the car park class](./screenshots/methods-to-car-park.png)
+```
 
 Answer the following questions:
 > **Review Questions**
