@@ -30,4 +30,3 @@ class Sensor(ABC):
         plate = self._scan_plate()
         temperature = self._scan_temperature()
         self.update_car_park(plate, temperature)
-
