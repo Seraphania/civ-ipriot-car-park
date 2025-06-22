@@ -21,6 +21,9 @@ class TestCarpark(unittest.TestCase):
          self.assertEqual(self.carpark.available_bays, 100)
          self.assertIsNotNone(self.carpark.time)
 
+      def test_register_raises_type_error(self):
+         with self.assertRaises(TypeError):
+            self.carpark.register("Not a display")
 
       def test_add_car(self):
          self.carpark.add_car("FAKE-001")
