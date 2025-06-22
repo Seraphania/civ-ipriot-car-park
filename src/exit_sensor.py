@@ -4,6 +4,9 @@ from random import choice
 class ExitSensor(Sensor):
 
     def update_car_park(self, plate, temperature):
+        """
+        Remove exiting car from list of carpark's plates, and provide an update on the current temperature
+        """
         self.carpark.temperature = temperature
         self.carpark.remove_car(plate)
 

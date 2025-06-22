@@ -57,7 +57,7 @@ class TestCarpark(unittest.TestCase):
          self.carpark.temperature = "22°C"
          self.carpark.register(Display(1, is_active=True))
          self.carpark.register(Display(2, is_active=True))
-         self.carpark.update_displays(scroll_print=False)
+         self.carpark.update_displays(scroll_print=False) # Print instantly without scrolling effect for testing
          for display in self.carpark.displays:
             self.assertEqual(display.display_data["Available Bays"], self.carpark.available_bays)
             self.assertEqual(display.display_data["Current Temperature"], self.carpark.temperature)

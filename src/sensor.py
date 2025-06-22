@@ -19,10 +19,13 @@ class Sensor(ABC):
     def update_car_park(self, plate: str, temperature:str):
         ...
 
-    def _scan_plate(self):
+    def _scan_plate(self): # hacky for the sake of simulation
         return f"FAKE-{randint(0, 9999): 04d}"
     
-    def _scan_temperature(self): # hacky for the sake of simulation
+    def _scan_temperature(self):
+        """
+        Returns the current temperature from the sensors (imaginary) thermometer
+        """
         temp = randint(8, 46)
         return f"{temp} \u00b0C"
     

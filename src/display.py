@@ -16,6 +16,10 @@ class Display:
         return f"Display {self.display_id}: {self.message}"
 
     def print_to_display(self, scroll: bool=True, delay: float=0.1, width: int=30):
+        """
+        Print display information with a scrolling type effect
+        Type effect can be disabled for easier debugging with scroll=False
+        """
         if scroll == True:
             for key, value in self.display_data.items():            
                 line = f"{' ' * width}{key}: {value}{' ' * width}"
@@ -23,6 +27,6 @@ class Display:
                     stdout.write(f"|\r|{line[i:i+width]}")
                     stdout.flush()
                     sleep(delay)
-        else: # Used for quicker debugging
+        else: # print instantly for quicker debugging
             for key, value in self.display_data.items():
                 print(f"{key}: {value}")
