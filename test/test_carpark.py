@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../s
 
 import unittest
 from carpark import Carpark
+from display import Display
 
 class TestCarpark(unittest.TestCase):
       def setUp(self):
@@ -15,7 +16,11 @@ class TestCarpark(unittest.TestCase):
          self.assertEqual(self.carpark.capacity, 100)
          self.assertEqual(self.carpark.plates, [])
          self.assertEqual(self.carpark.displays, [])
+         self.assertEqual(self.carpark.message, "Welcome to 123 Example Street carpark")
+         self.assertEqual(self.carpark.temperature, "")
          self.assertEqual(self.carpark.available_bays, 100)
+         self.assertIsNotNone(self.carpark.time)
+
 
       def test_add_car(self):
          self.carpark.add_car("FAKE-001")
@@ -44,8 +49,14 @@ class TestCarpark(unittest.TestCase):
          with self.assertRaises(ValueError):
             self.carpark.remove_car("NO-1")
 
-
-if __name__ == "__main__":
-   unittest.main()
-
-print(os.environ["PYTHONPATH"])
+      def test_update_displays_updates_display_data(self):
+         # The display.display_data attribute for each display should be updated with the dictionary content
+         self.carpark.temperature = "22°C"
+         self.carpark.register(Display(1, is_active=True))
+         self.carpark.register(Display(2, is_active=True))
+         self.carpark.update_displays(scroll_print=False)
+         for display in self.carpark.displays:
+            self.assertEqual(display.display_data["Available Bays"], self.carpark.available_bays)
+            self.assertEqual(display.display_data["Current Temperature"], self.carpark.temperature)
+            self.assertEqual(display.display_data["Current Time"], self.carpark.time)
+            self.assertEqual(display.display_data["Message"], self.carpark.message)

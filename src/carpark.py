@@ -1,27 +1,35 @@
 from display import Display
+from datetime import datetime
 
 class Carpark:
     displays: list[Display]
     def __init__(self,
                  location: str,
                  capacity: int,
-                 message: str | None = None,
                  _plates = None,
-                 _displays = None): # add data for aggregation
+                 _displays = None):
 
         self.location = location
         self.capacity = capacity
-        self.message = message or f"Welcome to {self.location} carpark"
         self.plates = _plates or []
         self.displays = _displays or []
 
-    def __str__(self):
-        return f"{self.location} carpark has a capacity of {self.capacity} bays."
-    
+        self.message = f"Welcome to {self.location} carpark"
+        self.temperature = ""
+
     @property
     def available_bays(self) -> int:
         available = self.capacity - len(self.plates)
         return max(available, 0)
+    
+    @property
+    def time(self):
+        raw_time = datetime.now()
+        time = raw_time.strftime("%I:%M %p")
+        return time
+
+    def __str__(self):
+        return f"{self.location} carpark has a capacity of {self.capacity} bays."
     
     def register(self, display):
         if not isinstance(display, Display):
@@ -40,13 +48,12 @@ class Carpark:
         self.plates.remove(plate)
         self.update_displays()
 
-    def update_displays(self):
+    def update_displays(self, scroll_print=True):
         for display in self.displays:
-            display.print_to_display({
+            display.display_data = {
             "Available Bays": self.available_bays,
-            "Current Temperature": 25, # TODO Create module to get current weather from sensor, or maybe an API?
-            "Current Time": l, # TODO Update this from sensor
+            "Current Temperature": self.temperature,
+            "Current Time": self.time,
             "Message": self.message,
-            })
-
-
+            }
+            display.print_to_display(scroll=scroll_print)
