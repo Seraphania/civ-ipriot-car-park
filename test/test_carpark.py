@@ -12,10 +12,10 @@ log_file = Path("log/test_log.txt")
 
 class TestCarpark(unittest.TestCase):
       def setUp(self):
-         self.carpark = Carpark("123 Example Street", 100)
+         self.carpark = Carpark("123 Example Street", 100, log_file=log_file)
 
       def test_carpark_initialized_with_all_attributes(self):
-         self.assertEqual(self.carpark.log_file, Path("log/log.txt"))
+         self.assertEqual(self.carpark.log_file, log_file.resolve())
          self.assertIsInstance(self.carpark, Carpark)
          self.assertEqual(self.carpark.location, "123 Example Street")
          self.assertEqual(self.carpark.capacity, 100)
@@ -92,6 +92,6 @@ class TestCarpark(unittest.TestCase):
          self.assertIn("exited", last_line) # check description
          self.assertIn("\n", last_line) # check entry has a new line
 
-      def tearDown(self):
-         Path("log/test_log.txt").unlink(missing_ok=True)
+      # def tearDown(self):
+      #    Path("log/test_log.txt").unlink(missing_ok=True)
  
