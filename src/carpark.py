@@ -11,16 +11,19 @@ class Carpark:
                  capacity: int,
                  _plates = None,
                  _displays = None,
-                 log_file=Path("log/log.txt")):
+                 log_file=Path("log/log.txt"),
+                 config_file=Path("config.json")):
 
         self.location = location
         self.capacity = capacity
         self.log_file = log_file
+        self.config_file = config_file
         self.plates = _plates or []
         self.displays = _displays or []
         self.log_file.parent.mkdir(parents=True, exist_ok=True) 
         self.log_file.touch(exist_ok=True)
         self.log_file = log_file.resolve()
+        self.config_file.touch(exist_ok=True)
         self.message = f"Welcome to {self.location} carpark"
         self.temperature = ""
 
@@ -43,6 +46,22 @@ class Carpark:
     
     def __str__(self):
         return f"{self.location} carpark has a capacity of {self.capacity} bays."
+    
+    @classmethod
+    def from_config(cls, config_file=Path("config.json")):
+        config_file = config_file if isinstance(config_file, Path) else Path(config_file)
+        with config_file.open()as f:
+            config = json.load(f)
+        return cls(config["location"], config["capacity"], log_file=config["log_file"])
+
+    def write_config(self):
+        """
+        Store carpark configuration
+        """
+        with open(self.config_file, "w") as f:
+            json.dump({"location": self.location,
+                       "capacity": self.capacity,
+                       "log_file": Path("log/log.txt")}, f)
 
     def register(self, display):
         """
