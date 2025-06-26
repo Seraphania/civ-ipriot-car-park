@@ -11,19 +11,16 @@ class Carpark:
                  capacity: int,
                  _plates = None,
                  _displays = None,
-                 log_file=Path("log/log.txt"),
-                 config_file=Path("config.json")):
+                 log_file = None,
+                 config_file = None):
 
         self.location = location
         self.capacity = capacity
-        self.log_file = log_file
-        self.config_file = config_file
         self.plates = _plates or []
         self.displays = _displays or []
-        self.log_file.parent.mkdir(parents=True, exist_ok=True) 
-        self.log_file.touch(exist_ok=True)
-        self.log_file = log_file.resolve()
-        self.config_file.touch(exist_ok=True)
+        self.log_file = self._init_file(log_file or "log/log.txt")
+        self.config_file = self._init_file(config_file or "config.json")
+        
         self.message = f"Welcome to {self.location} carpark"
         self.temperature = ""
 
@@ -43,16 +40,13 @@ class Carpark:
         raw_time = datetime.now()
         date = f"{raw_time.day}/{raw_time.month}/{raw_time.year}"
         return date
-    
-    def __str__(self):
-        return f"{self.location} carpark has a capacity of {self.capacity} bays."
-    
+
     @classmethod
-    def from_config(cls, config_file=Path("config.json")):
+    def from_config(cls, config_file):
         config_file = config_file if isinstance(config_file, Path) else Path(config_file)
         with config_file.open()as f:
             config = json.load(f)
-        return cls(config["location"], config["capacity"], log_file=config["log_file"])
+        return cls(config["location"], config["capacity"], log_file=config["log_file"], config_file=config["config_file"])
 
     def write_config(self):
         """
@@ -61,8 +55,20 @@ class Carpark:
         with open(self.config_file, "w") as f:
             json.dump({"location": self.location,
                        "capacity": self.capacity,
-                       "log_file": Path("log/log.txt")}, f)
+                       "log_file": self.log_file,
+                       "config_file": self.config_file}, f)
 
+    def _init_file(self, file):
+        """
+        Create path and file name if not already present
+        Return file name
+        """
+        file_path = Path(file)
+        file_path.parent.mkdir(parents=True, exist_ok=True) 
+        file_path.touch(exist_ok=True)
+        return file
+        
+    
     def register(self, display):
         """
         Register new displays and add them to the displays list
@@ -75,7 +81,7 @@ class Carpark:
         """
         Update the log file with car activity
         """
-        with self.log_file.open(mode='a', encoding="utf8") as file:
+        with Path(self.log_file).open(mode='a', encoding="utf8") as file:
             file.write(f"Car {plate} {'entered' if entry else 'exited'} at {self.time} {self.date}\n")
 
     def add_car(self, plate: str):
@@ -110,3 +116,6 @@ class Carpark:
             "Message": self.message,
             }
             display.print_to_display(scroll=scroll_print)
+        
+    def __str__(self):
+        return f"{self.location} carpark has a capacity of {self.capacity} bays."

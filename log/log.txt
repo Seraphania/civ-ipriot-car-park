@@ -1,4 +1,2 @@
-Car FAKE-3355 entered at 08:55 PM 24/6/2025
-Car FAKE-5664 entered at 08:59 PM 24/6/2025
-Car TEST-001 entered at 09:00 PM 24/6/2025
-Car TEST-001 exited at 09:00 PM 24/6/2025
+Car TEST-001 entered at 05:52 PM 26/6/2025
+Car TEST-001 exited at 05:52 PM 26/6/2025
