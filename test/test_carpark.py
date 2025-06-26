@@ -4,21 +4,24 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve() / "../src"))
 
 import unittest
+import json
 
 from carpark import Carpark
 from display import Display
 
-log_file = Path("log/test_log.txt")
+log = "log/test_log.txt"
+config = "test_config.json"
 
 class TestCarpark(unittest.TestCase):
       def setUp(self):
-         self.carpark = Carpark("123 Example Street", 100)
+         self.carpark = Carpark(location="123 Example Street", capacity=100, log_file=log, config_file=config)
 
       def test_carpark_initialized_with_all_attributes(self):
-         self.assertEqual(self.carpark.log_file, Path("log/log.txt"))
          self.assertIsInstance(self.carpark, Carpark)
          self.assertEqual(self.carpark.location, "123 Example Street")
          self.assertEqual(self.carpark.capacity, 100)
+         self.assertEqual(self.carpark.log_file, log)
+         self.assertEqual(self.carpark.config_file, config)
          self.assertEqual(self.carpark.plates, [])
          self.assertEqual(self.carpark.displays, [])
          self.assertEqual(self.carpark.message, "Welcome to 123 Example Street carpark")
@@ -70,28 +73,43 @@ class TestCarpark(unittest.TestCase):
             self.assertEqual(display.display_data["Message"], self.carpark.message)
             
       def test_log_file_created(self):
-         new_carpark = Carpark(location="Moondalup", capacity=100, log_file=log_file)
-         self.assertTrue(Path("log/test_log.txt").exists())
+         self.assertTrue(Path(log).exists())
 
       def test_car_logged_when_entering(self):
-         new_carpark = Carpark("123 Example Street", 100, log_file=log_file)
-         new_carpark.add_car("NEW-001")
-         with new_carpark.log_file.open() as f:
+         self.carpark.add_car("NEW-001")
+         with Path(self.carpark.log_file).open() as f:
                last_line = f.readlines()[-1]
          self.assertIn("NEW-001", last_line) # check plate entered
          self.assertIn("entered", last_line) # check description
          self.assertIn("\n", last_line) # check entry has a new line
 
       def test_car_logged_when_exiting(self):
-         new_carpark = Carpark("123 Example Street", 100, log_file=log_file) 
-         new_carpark.add_car("NEW-001")
-         new_carpark.remove_car("NEW-001")
-         with new_carpark.log_file.open() as f:
+         self.carpark.add_car("NEW-001")
+         self.carpark.remove_car("NEW-001")
+         with Path(self.carpark.log_file).open() as f:
                last_line = f.readlines()[-1]
          self.assertIn("NEW-001", last_line)# (last_line, "NEW-001") # check plate entered
          self.assertIn("exited", last_line) # check description
          self.assertIn("\n", last_line) # check entry has a new line
 
+      def test_write_config_creates_valid_json(self):
+         self.carpark.write_config()
+         self.assertTrue(Path(config).exists()) # test config created
+         data = json.loads(Path(config).read_text())
+         # Test that config_file location, capacity and log file are accurate
+         self.assertEqual(data["location"], "123 Example Street") 
+         self.assertEqual(data["capacity"], 100)
+         self.assertEqual(data["log_file"], log)
+
+      def test_carpark_loads_from_config(self):
+         self.carpark.write_config()
+         new_carpark = self.carpark.from_config(config_file=config)
+         self.assertIsInstance(new_carpark, Carpark)
+         self.assertEqual(new_carpark.location, "123 Example Street")
+         self.assertEqual(new_carpark.capacity, 100)
+         self.assertEqual(new_carpark.log_file, log)
+
       def tearDown(self):
-         Path("log/test_log.txt").unlink(missing_ok=True)
- 
+         Path(log).unlink(missing_ok=True)
+         Path(config).unlink(missing_ok=True)
+         Path("new_log.txt").unlink(missing_ok=True)

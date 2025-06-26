@@ -20,7 +20,7 @@ class Sensor(ABC):
         ...
 
     def _scan_plate(self): # hacky for the sake of simulation
-        return f"FAKE-{randint(0, 9999): 04d}"
+        return f"FAKE-{randint(0, 9999):04d}"
     
     def _scan_temperature(self):
         """
