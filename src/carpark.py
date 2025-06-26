@@ -42,7 +42,11 @@ class Carpark:
         return date
 
     @classmethod
+
     def from_config(cls, config_file):
+        """
+        Enables creation of a carpark from a log file
+        """
         config_file = config_file if isinstance(config_file, Path) else Path(config_file)
         with config_file.open()as f:
             config = json.load(f)
@@ -50,7 +54,7 @@ class Carpark:
 
     def write_config(self):
         """
-        Store carpark configuration
+        Store carpark configuration in a .json file
         """
         with open(self.config_file, "w") as f:
             json.dump({"location": self.location,
