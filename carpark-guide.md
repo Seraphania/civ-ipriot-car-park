@@ -829,7 +829,7 @@ You have been asked to implement the following additional functionality:
 
 You decide to use TDD to implement this functionality. You start by writing a unit test for each requirement. You then implement the functionality to make the unit tests pass. Because you've already developed and tested much of the core functionality, you also decide to create a branch for this work.
 
-Working in a branch allows you to work on the new functionality without affecting the core functionality. You can then merge the branch back into the main branch when you are done. This is a common workflow in software development.
+Wor branch back into the main branch when you are done. This is a common workflow in software developmking in a branch allows you to work on the new functionality without affecting the core functionality. You can then merge theent.
 
 #### 2.13.1. Create a branch
 
@@ -1054,9 +1054,7 @@ We are going to do the latter:
 **Additional evidencing:**
 After you have merged your branch to main, push to your remote with the s10 tag. Add a screenshot of the GitHub repository after pushing the tag, showing the CarPark class with the new methods:
 
-```markdown
-![Added methods to the car park class](screenshots/methods-to-car-park.png)
-```
+![Added config methods to the car park class](./images/config_methods-to-car-park.png)  
 
 ### 2.14. Final step: build a car park
 
@@ -1099,7 +1097,8 @@ In your final submission, you must include any files you created or modified. Th
    ```markdown
    ![Main.py output](screenshots/main-py.png)
    ```
-
+![Main.py output](images/main-output-1.png)
+![Main.py output2](images/main-output-2.png)
 > Required for evidencing competency:
 
 2. Push the changes to the remote repository and create a PR (recommended you use the PR template in NorthMetro Software's repository).
