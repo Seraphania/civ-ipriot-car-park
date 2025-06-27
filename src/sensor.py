@@ -16,7 +16,7 @@ class Sensor(ABC):
         return f"Sensor ID: {self.sensor_id}, Status: {self.is_active}"
 
     @abstractmethod
-    def update_car_park(self, plate: str, temperature:str):
+    def update_carpark(self, plate: str, temperature:str):
         ...
 
     def _scan_plate(self): # hacky for the sake of simulation
@@ -32,4 +32,4 @@ class Sensor(ABC):
     def detect_vehicle(self):
         plate = self._scan_plate()
         temperature = self._scan_temperature()
-        self.update_car_park(plate, temperature)
+        self.update_carpark(plate, temperature)

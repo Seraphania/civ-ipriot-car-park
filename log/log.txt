@@ -1,2 +1,4 @@
 Car TEST-001 entered at 05:52 PM 26/6/2025
 Car TEST-001 exited at 05:52 PM 26/6/2025
+Car TEST-001 entered at 10:12 AM 27/6/2025
+Car TEST-001 exited at 10:12 AM 27/6/2025

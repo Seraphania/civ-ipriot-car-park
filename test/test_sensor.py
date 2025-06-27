@@ -35,12 +35,12 @@ class TestSensor(unittest.TestCase):
 
     def test_sensor_update_carpark(self):
         # Entry sensor should add a plate and update the carpark temperature
-        self.entry_sensor.update_car_park(plate="TEST-001", temperature="30 Degrees")
+        self.entry_sensor.update_carpark(plate="TEST-001", temperature="30 Degrees")
         self.assertIn("TEST-001", self.carpark.plates)
         self.assertEqual(self.carpark.temperature, "30 Degrees")
 
         # Exit sensor should remove a plate from plates and update the temperature
-        self.exit_sensor.update_car_park(plate="TEST-001", temperature="40 Degrees")
+        self.exit_sensor.update_carpark(plate="TEST-001", temperature="40 Degrees")
         self.assertNotIn("TEST-001", self.carpark.plates)
         self.assertEqual(self.carpark.temperature, "40 Degrees")
         

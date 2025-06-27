@@ -2,7 +2,7 @@ from sensor import Sensor
 
 class EntrySensor(Sensor):
 
-    def update_car_park(self, plate, temperature):
+    def update_carpark(self, plate, temperature):
         """
         Add car to list of carpark's plates, and provide an update on the current temperature
         """

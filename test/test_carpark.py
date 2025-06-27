@@ -63,8 +63,8 @@ class TestCarpark(unittest.TestCase):
       def test_update_displays_updates_display_data(self):
          # The display.display_data attribute for each display should be updated with the dictionary content
          self.carpark.temperature = "22°C"
-         self.carpark.register(Display(1, is_active=True))
-         self.carpark.register(Display(2, is_active=True))
+         self.carpark.register(Display("1", is_active=True))
+         self.carpark.register(Display("2", is_active=True))
          self.carpark.update_displays(scroll_print=False) # Print instantly without scrolling effect for testing
          for display in self.carpark.displays:
             self.assertEqual(display.display_data["Available Bays"], self.carpark.available_bays)
