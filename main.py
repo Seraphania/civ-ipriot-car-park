@@ -6,8 +6,7 @@ from display import Display
 from entry_sensor import EntrySensor
 from exit_sensor import ExitSensor
 
-
-carpark = Carpark(location="Moondalup", capacity=100, log_file="moondalup.txt", config_file="moondalup_config.json")
+carpark = Carpark(location="Moondalup", capacity=100, log_file="log/moondalup.txt", config_file="moondalup_config.json")
 carpark.write_config()
 carpark = Carpark.from_config(config_file="moondalup_config.json")
 entry_sensor = EntrySensor(sensor_id="1", carpark=carpark, is_active=True)
