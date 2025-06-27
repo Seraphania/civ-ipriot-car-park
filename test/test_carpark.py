@@ -1,7 +1,6 @@
-import sys
+# import sys
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve() / "../src"))
+# sys.path.insert(0, str(Path(__file__).resolve() / "../src"))
 
 import unittest
 import json
@@ -9,8 +8,8 @@ import json
 from carpark import Carpark
 from display import Display
 
-log = "log/test_log.txt"
-config = "test_config.json"
+log = "log/test_log.txt" # avoid overwriting "official" logs during testing
+config = "test_config.json" # avoid overwriting "official" config files during testing
 
 class TestCarpark(unittest.TestCase):
       def setUp(self):
@@ -94,9 +93,11 @@ class TestCarpark(unittest.TestCase):
 
       def test_write_config_creates_valid_json(self):
          self.carpark.write_config()
-         self.assertTrue(Path(config).exists()) # test config created
+         # newly created config should exist on disk 
+         self.assertTrue(Path(config).exists()) 
          data = json.loads(Path(config).read_text())
-         # Test that config_file location, capacity and log file are accurate
+
+         # config_file location, capacity and log file should match the carpark that wrote the config
          self.assertEqual(data["location"], "123 Example Street") 
          self.assertEqual(data["capacity"], 100)
          self.assertEqual(data["log_file"], log)
@@ -104,12 +105,13 @@ class TestCarpark(unittest.TestCase):
       def test_carpark_loads_from_config(self):
          self.carpark.write_config()
          new_carpark = self.carpark.from_config(config_file=config)
+         # In a carpark created from config, the location, capacity and log file should match the carpark that wrote the config
          self.assertIsInstance(new_carpark, Carpark)
          self.assertEqual(new_carpark.location, "123 Example Street")
          self.assertEqual(new_carpark.capacity, 100)
          self.assertEqual(new_carpark.log_file, log)
 
-      def tearDown(self):
+      def tearDown(self): # remove logs and config files used for testing
          Path(log).unlink(missing_ok=True)
          Path(config).unlink(missing_ok=True)
          Path("new_log.txt").unlink(missing_ok=True)

@@ -7,10 +7,14 @@ import unittest
 from entry_sensor import EntrySensor
 from exit_sensor import ExitSensor
 from carpark import Carpark
+from pathlib import Path
+
+log = "log/test_log.txt" # avoid overwriting "official" logs during testing
+config = "test_config.json" # avoid overwriting "official" config files during testing
 
 class TestSensor(unittest.TestCase):
     def setUp(self):
-        self.carpark = Carpark(location="Testpark", capacity=42)
+        self.carpark = Carpark(location="Testpark", capacity=42, log_file=log, config_file=config)
 
         self.entry_sensor = EntrySensor(sensor_id="Entry Test", 
                                        carpark=self.carpark,
@@ -44,6 +48,8 @@ class TestSensor(unittest.TestCase):
         self.assertNotIn("TEST-001", self.carpark.plates)
         self.assertEqual(self.carpark.temperature, "40 Degrees")
         
-
+    def tearDown(self): # remove logs and config files used for testing
+        Path(log).unlink(missing_ok=True)
+        Path(config).unlink(missing_ok=True)
 
     
