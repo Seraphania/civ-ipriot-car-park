@@ -1,9 +1,6 @@
-# import sys
-from pathlib import Path
-# sys.path.insert(0, str(Path(__file__).resolve() / "../src"))
-
 import unittest
 import json
+from pathlib import Path
 
 from carpark import Carpark
 from display import Display

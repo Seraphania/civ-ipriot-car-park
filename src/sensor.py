@@ -26,7 +26,7 @@ class Sensor(ABC):
         """
         Returns the current temperature from the sensors (imaginary) thermometer
         """
-        temp = randint(8, 46)
+        temp = randint(8, 46)  # hacky for the sake of simulation
         return f"{temp} \u00b0C"
     
     def detect_vehicle(self):

@@ -42,7 +42,6 @@ class Carpark:
         return date
 
     @classmethod
-
     def from_config(cls, config_file):
         """
         Enables creation of a carpark from a log file
