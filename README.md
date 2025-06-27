@@ -12,19 +12,19 @@ To develop a robust, user-friendly smart carpark application that seamlessly int
    1. EntrySensor: Detects cars entering the carpark.
    2. ExitSensor: Detects cars exiting the carpark.
 2. Carpark Management Center:
-   1. Tracks the status of each parking bay (occupied or available).
-   2. Maintains a log of all cars entering and exiting, including timestamps.
+   1. Maintains a log of all cars entering and exiting, including timestamps.
 3. Display:
    1. Shows the number of available parking bays.
-   2. Displays the current temperature (sourced from an external weather data file).
-4. Car Class:
-   1. Represents a car with attributes such as license plate, car model, entry time, and exit time.
-5. Carpark Class:
+   2. Displays the current temperature.
+   3. Displays the current time.
+   4. Displays a welcome message.
+4. Carpark Class:
    1. Manages the collection of cars and parking bays.
    2. Interfaces with the sensors to update parking bay status.
+   3. Maintains a log of all cars entering and exiting, including timestamps.
+   4. Generates and can be initialised from a config file.
 
 **Client Requirements:**  
-1. The system must accurately track the status of each parking bay in real-time.
-2. The display must be updated promptly as cars enter or exit.
-3. The system should be robust, easy to maintain, and scalable for future enhancements.
-4. The application must follow best coding practices and include comprehensive unit testing.
+1. The display must be updated promptly as cars enter or exit.
+2. The system should be robust, easy to maintain, and scalable for future enhancements.
+3. The application must follow best coding practices and include comprehensive unit testing.
